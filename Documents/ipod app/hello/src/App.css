@@ -27,14 +27,15 @@
   height: 100%;
   padding:0 0 10px 20px;
   box-sizing: border-box;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between; */
 }
 
 .menu > div {
-  padding: 5px;
+  padding: 10px;
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 .menu .active {
@@ -49,7 +50,7 @@
 .screen>img {
   width:100%;
   height:100%;
-  background-size: cover;
+  background-size: contain;
 }
 
 .action-box{

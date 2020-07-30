@@ -1,6 +1,6 @@
 import React from 'react';
 import ZingTouch from 'zingtouch';
-import { moveTopToBottom, moveBottomToTop } from '../action';
+import { moveTopToBottom, moveBottomToTop, showOptionOfMenu1, showOptionOfMenu2 } from '../action';
 
 class Controller extends React.Component {
 
@@ -20,10 +20,10 @@ class Controller extends React.Component {
 
             console.log('event', event.detail);
 
-            const { menu } = self.props.store.getState();
+            const { Menu } = self.props.store.getState();
 
-            console.log("activeMenu", menu.activeMenu);
-            const { activeMenu } = menu;
+            console.log("activeMenu", Menu.activeMenu);
+            const { activeMenu } = Menu;
             self.distanceFrom += event.detail.distanceFromLast;
             console.log('distance from', self.distanceFrom);
 
@@ -39,20 +39,29 @@ class Controller extends React.Component {
         })
 
     }
+    handleOkButton = () => {
+        const { Menu } = this.props.store.getState();
+        const { activeMenu } = Menu;
+        this.props.store.dispatch(showOptionOfMenu2(activeMenu));
+    }
+
+    handleMenuButton = () => {
+        this.props.store.dispatch(showOptionOfMenu1('level1'));
+    }
 
 
     render() {
         console.log('conroller render');
         return (
             <div className='action-box'>
-                <div className='menu-btn'>
+                <div className='menu-btn' onClick={this.handleMenuButton}>
                     Menu
                 </div>
                 <div className='middle-btn'>
                     <div className='right'>
                         <img src="https://img.icons8.com/metro/26/000000/double-left.png" />
                     </div>
-                    <div className='center'>
+                    <div className='center' onClick={this.handleOkButton}>
                     </div>
                     <div className='left'>
                         <img src="https://img.icons8.com/metro/26/000000/double-right.png" />

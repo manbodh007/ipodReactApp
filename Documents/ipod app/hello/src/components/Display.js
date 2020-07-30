@@ -1,50 +1,64 @@
 import React from 'react';
 
-
 class Display extends React.Component {
 
 
-    componentDidMount(){
-
-        this.props.store.subscribe(()=>{
+    componentDidMount() {
+        this.props.store.subscribe(() => {
             this.forceUpdate();
-          })
+        });
+
+
+
     }
 
+    onChange = date => this.props.store.dispatch(date)
+
     render() {
-        const {menu} = this.props.store.getState();
-        const {activeMenu,date} = menu;
+        const { Menu } = this.props.store.getState();
+        const { activeMenu, menu ,level2,heading,screenImg} = Menu;
         console.log('display render');
-        console.log('activemenu',activeMenu);
-        
+        console.log('activemenu', activeMenu);
+
         return (
             <div className='display'>
 
-                  
+                {
+                    menu == 'level1' ?
                         <div className='menu'>
-                          <h2>ipod</h2>
+                            <h2>ipod</h2>
                             {
-                            activeMenu=='music'?<div className="active">Music</div>:<div>Music</div>
+                                activeMenu == 'music' ? <div className="active">Music</div> : <div>Music</div>
                             }
+                            {
+                                activeMenu == 'games' ?
+                                    <div className="active">Games</div> : <div>Games</div>
+                            }
+                            {
+                                activeMenu == 'coverflow' ?
+                                    <div className="active">Coverflow</div> : <div>Coverflow</div>
+                            }
+                            {
+                                activeMenu == 'setting' ?
+                                    <div className="active">Setting</div> : <div>Setting</div>
+                            }
+                        </div> :
+                        <div className='menu'>
+                            <h2>{heading}</h2>
                              {
-                            activeMenu=='games'?
-                            <div className="active">Games</div>:<div>Games</div>
-                            }
-                             {
-                            activeMenu=='coverflow'?
-                            <div className="active">Coverflow</div>:<div>Coverflow</div>
-                            }
-                             {
-                            activeMenu=='setting'?
-                            <div className="active">Setting</div>:<div>Setting</div>
-                            }
-                            
+                             level2.map((menuItem)=>{
+                                  return (
+                                        activeMenu == menuItem?
+                                        <div className="active">{menuItem}</div>:<div>{menuItem}</div>
+                                  )
+                               })
+                             }
                         </div>
-                    
-            
+                }
+
+
                 <div className='screen'>
-                    
-                    <img src="https://1.bp.blogspot.com/-MdaQwrpT4Gs/Xdt-ff_hxEI/AAAAAAAAQXE/oOgnysGd9LwoFLMHJ0etngKzXxmQkWc5ACLcBGAsYHQ/s400/Beautiful-Backgrounds%2B%2528122%2529.jpg" />
+                    <img src={screenImg} />
                 </div>
             </div>
         );
